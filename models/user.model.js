@@ -1,4 +1,6 @@
 import { Schema, model } from "mongoose";
+import validate from 'validator';
+import bcrypt from "bcryptjs";
 
 let userSchema = new Schema(
   {
@@ -13,6 +15,14 @@ let userSchema = new Schema(
       // creates a unique index not a validator
       unique: true,
       required: [true, "email is a required field"],
+      validate:[validate.isEmail,"Enter proper email"]
+
+      // validate:{
+      // validator:function(value){
+      //   return value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
+      // },
+      // message:"Enter proper email"
+      // }
     },
     role: {
       type: String,
@@ -40,6 +50,14 @@ let userSchema = new Schema(
     timestamps: true, //createdAt,updatedAt
   }
 );
+
+//pre middleware
+userSchema.pre("save", async function(next){
+    this.password=await bcrypt.hash(this.password, 10)
+    next()
+})
+
+
 
 let User = model("User", userSchema);
 
