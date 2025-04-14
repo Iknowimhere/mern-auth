@@ -12,11 +12,11 @@ export let register=async (req,res,next)=>{
 }
 
 export let login=async (req,res,next)=>{
-    let exisitngUser=await authInstance.loginUser(req);
-    if(!exisitngUser){
+    let exisitingUser=await authInstance.loginUser(req);
+    if(!exisitingUser){
         return res.status(400).json({
             message:"User not found please register"
         })
     }
-    res.status(200).json(exisitngUser)
+    res.status(200).json(exisitingUser)
 }

@@ -28,6 +28,12 @@ let userSchema = new Schema(
       type: String,
       minLength: [6, "Min character length is 6"],
       required: [true, "Confirm password is a required field"],
+      validate: {
+        validator: function (value) {
+          return value === this.password;
+        },
+        message: "Password and Confirm Password do not match",
+      },
     },
   },
   {
@@ -35,7 +41,6 @@ let userSchema = new Schema(
   }
 );
 
-
-let User=model("User",userSchema);
+let User = model("User", userSchema);
 
 export default User;
