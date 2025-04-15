@@ -36,6 +36,7 @@ let userSchema = new Schema(
     },
     confirmPassword: {
       type: String,
+      select:false,
       minLength: [6, "Min character length is 6"],
       required: [true, "Confirm password is a required field"],
       validate: {
@@ -54,9 +55,9 @@ let userSchema = new Schema(
 //pre middleware
 userSchema.pre("save", async function(next){
     this.password=await bcrypt.hash(this.password, 10)
+    this.confirmPassword=undefined
     next()
 })
-
 
 
 let User = model("User", userSchema);

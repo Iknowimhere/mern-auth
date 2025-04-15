@@ -8,7 +8,12 @@ export let register=async (req,res,next)=>{
             message:"User not created"
         })
     }
-    res.status(201).json(newUser)
+  
+    res.status(201).json({
+        username:newUser.username,
+        email:newUser.email,
+        role:newUser.role
+    })
 }
 
 export let login=async (req,res,next)=>{
