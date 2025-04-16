@@ -1,4 +1,5 @@
 import authInstance from '../services/auth.services.js'
+import generateToken from '../utils/generateToken.js';
 
 
 export let register=async (req,res,next)=>{
@@ -8,8 +9,8 @@ export let register=async (req,res,next)=>{
             message:"User not created"
         })
     }
-  
-    res.status(201).json(newUser)
+    let token=await generateToken(newUser._id)
+    res.status(201).json({user:newUser,token})
 }
 
 export let login=async (req,res,next)=>{
@@ -20,6 +21,6 @@ export let login=async (req,res,next)=>{
             message:"User not found please register"
         })
     }
-
-    res.status(200).json(exisitingUser)
+    let token=await generateToken(exisitingUser._id)
+    res.status(200).json({user:exisitingUser,token})
 }

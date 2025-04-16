@@ -6,4 +6,4 @@ const generateToken=async (id)=>{
     })
 }
 
-export default generateToken;
+export default generateToken; 
