@@ -11,12 +11,11 @@ const auth=async (req,res,next)=>{
     if(!token){
         return res.status(400).json("Please login!!")
     }
-
     let decodedToken=jwt.verify(token,process.env.JWT_SECRET)
 
     let user=await userInstance.findUserById(decodedToken.id)
     if(!user){
-        return res.status(400).json("Please register!!")
+        return res.status(400).json("User doesn't exist,Please register!!")
     }
     req.userId=user._id;
     next()
