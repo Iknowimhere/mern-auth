@@ -14,7 +14,7 @@ export let register=asyncHandler(async (req,res,next)=>{
     res.status(201).json({user:newUser,token})
 })
 
-export let login=async (req,res,next)=>{
+export let login=asyncHandler(async (req,res,next)=>{
     let {password}=req.body
     let exisitingUser=await authInstance.loginUser(req);
     if(!exisitingUser || !(await exisitingUser.comparePassword(password,exisitingUser.password))){
@@ -24,4 +24,4 @@ export let login=async (req,res,next)=>{
     }
     let token=await generateToken(exisitingUser._id)
     res.status(200).json({user:exisitingUser,token})
-}
+})

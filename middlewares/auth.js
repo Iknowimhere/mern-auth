@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken'
 import userInstance from '../services/user.services.js';
 //verify token
+import asyncHandler from 'express-async-handler';
 
-const auth=async (req,res,next)=>{
+const auth=asyncHandler(async (req,res,next)=>{
     let token;
     if(req.headers.authorization && req.headers.authorization.startsWith("Bearer")){
         token=req.headers.authorization.split(" ")[1]
@@ -19,6 +20,6 @@ const auth=async (req,res,next)=>{
     }
     req.userId=user._id;
     next()
-}
+})
 
 export default auth;
