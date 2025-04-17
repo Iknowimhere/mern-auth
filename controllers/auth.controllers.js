@@ -1,17 +1,18 @@
 import authInstance from '../services/auth.services.js'
 import generateToken from '../utils/generateToken.js';
+import asyncHandler from 'express-async-handler';
 
-
-export let register=async (req,res,next)=>{
+export let register=asyncHandler(async (req,res,next)=>{
     let newUser=await authInstance.registerUser(req);
     if(!newUser){
-        return res.status(400).json({
-            message:"User not created"
-        })
+       throw new Error("User is not registered!!")
     }
     let token=await generateToken(newUser._id)
+    if(!token){
+        throw new Error("Error generating token")
+    }
     res.status(201).json({user:newUser,token})
-}
+})
 
 export let login=async (req,res,next)=>{
     let {password}=req.body
