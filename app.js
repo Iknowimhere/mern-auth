@@ -26,11 +26,14 @@ app.all("*", (req, res, next) => {
 app.use((err, req, res, next) => {
   let statusCode = err.statusCode || 500;
   let message = err.message || "Something went wrong";
-
-  res.status(statusCode).json({
+let response={
     message: message,
-    stack: process.env.NODE_ENV === "production" ? null : err.stack,
-  });
+    stack: process.env.NODE_ENV === "production" ? undefined : err.stack,
+  }
+  console.log(response);
+  console.log(process.env.NODE_ENV);
+  
+  res.status(statusCode).json(response);
 });
 
 export default app;
