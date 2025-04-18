@@ -1,4 +1,3 @@
-
 const validate=(schema)=>{
     return (req,res,next)=>{
         let {error}=schema.validate(req.body)
@@ -12,4 +11,4 @@ const validate=(schema)=>{
     }
 }
 
-export default validate
+export default validate;
