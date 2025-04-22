@@ -24,7 +24,6 @@ const Login = () => {
 
     try {
       const response = await axios.post('/auth/login', formData);
-      
       // Store the token in localStorage
       localStorage.setItem('userToken', response.data.token);
       
