@@ -12,17 +12,9 @@ let userSchema = new Schema(
     },
     email: {
       type: String,
-      // creates a unique index not a validator
       unique: true,
       required: [true, "email is a required field"],
       validate:[validate.isEmail,"Enter proper email"]
-
-      // validate:{
-      // validator:function(value){
-      //   return value.match(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g)
-      // },
-      // message:"Enter proper email"
-      // }
     },
     role: {
       type: String,
@@ -48,7 +40,7 @@ let userSchema = new Schema(
     },
   },
   {
-    timestamps: true, //createdAt,updatedAt
+    timestamps: true, 
   }
 );
 
